@@ -3,6 +3,7 @@ import joi from "joi"
 export type productBody = {
     id: number,
     nome: string,
+    descricao: string,
     preco: number,
 }
 

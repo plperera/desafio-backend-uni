@@ -11,7 +11,7 @@ async function createProduct(body: Omit<productBody, "id">){
 }
 async function findProductByName(name: string){
     const result = await productRepository.findByName(name)
-    return result[0]
+    return result
 }
 async function findProductById(productId: number){
     const result = await productRepository.findById(productId)

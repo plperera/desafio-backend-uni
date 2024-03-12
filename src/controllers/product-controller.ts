@@ -1,3 +1,4 @@
+import { productBody } from "@/schemas/product-schema";
 import productService from "@/services/product-service";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
@@ -11,13 +12,14 @@ export async function getAllProducts(req: Request, res: Response){
         
 
     } catch (error) {
+        console.log(error)
         return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 export async function createProduct(req: Request, res: Response){
     try {     
         
-        const { nome, preco } = req.body
+        const { nome, preco, descricao }: Omit<productBody, "id"> = req.body
 
         //verifica o body
 
@@ -27,7 +29,7 @@ export async function createProduct(req: Request, res: Response){
             return res.sendStatus(httpStatus.CONFLICT)
         }
 
-        const result = await productService.createProduct({ nome, preco })
+        const result = await productService.createProduct({ nome, preco, descricao })
 
         return res.send(result).status(httpStatus.CREATED)
 
@@ -38,13 +40,13 @@ export async function createProduct(req: Request, res: Response){
 export async function updateProduct(req: Request, res: Response){
     try {     
         
-        const { nome, preco, id } = req.body
+        const { nome, preco, descricao, id }: productBody = req.body
 
         //verifica o body
 
         const hasProduct = await productService.findProductById(id)
 
-        if (!hasProduct || hasProduct.length === 0) {
+        if (!hasProduct || !hasProduct ) {
             return res.sendStatus(httpStatus.NOT_FOUND)
         }
 
@@ -54,7 +56,7 @@ export async function updateProduct(req: Request, res: Response){
             return res.sendStatus(httpStatus.CONFLICT)
         }
 
-        const result = await productService.updateProduct({ nome, preco, id })
+        const result = await productService.updateProduct({ nome, preco, descricao, id })
 
         return res.send(result).status(httpStatus.OK)
 

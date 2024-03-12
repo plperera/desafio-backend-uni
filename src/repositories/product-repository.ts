@@ -1,36 +1,58 @@
+import { prisma } from "@/config"
 import { productBody } from "@/schemas/product-schema"
 
-let productDB: productBody[] = [
-    {nome: "produto1", id: 1, preco: 123}
-]
 
 async function findAll(){
-    return productDB
+    const result = await prisma.produto.findMany()
+    return result
 }
 async function findByName(name: string){
-    return productDB.filter( e => e.nome === name)
+    const result = await prisma.produto.findFirst({
+        where: {
+            nome: name
+        }
+    })
+    return result
 }
 async function findById(id: number){
-    return productDB.filter( e => e.id === id)
+    const result = await prisma.produto.findFirst({
+        where: {
+            id: id
+        }
+    })
+    return result
 }
 async function createProduct(body: Omit<productBody, "id">){
-    productDB.push({...body, id: 99})
-    return productDB[productDB.length - 1]
+    const result = await prisma.produto.create({
+        data: {
+            nome: body.nome,
+            preco: body.preco,
+            descricao: body.descricao
+        }
+    })
+    return result
 }
 async function updateProduct(body: productBody){
-    productDB = productDB.map( e => {
-        if (e.id === body.id) {
-            return body
+    const result = await prisma.produto.update({
+        where: {
+            id: body.id
+        },
+        data: {
+            nome: body.nome,
+            preco: body.preco,
+            descricao: body.descricao
         }
-        return e
     })
-    return productDB
+    return result
 }
 async function deleteProduct(id: number){
-    productDB = productDB.filter( e => e.id !== id)
-    return productDB
+    const result = await prisma.produto.delete({
+        where: {
+            id: id
+        }
+    })
+    return result
 }
-
 const productRepository = {
     findAll,
     findByName,
