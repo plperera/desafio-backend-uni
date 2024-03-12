@@ -1,7 +1,7 @@
 import joi from "joi"
 
 export type clientBody = {
-    clientId: number,
+    id: number,
     nome: string,
     sobrenome: string,
     email: string,
@@ -16,15 +16,15 @@ const create = joi.object<Omit<clientBody, "productId">>({
 });
 
 const update = joi.object<clientBody>({
-    clientId: joi.number().min(0).integer().required(),
+    id: joi.number().min(0).integer().required(),
     nome: joi.string().min(3).max(100).required(),
     sobrenome: joi.string().min(3).max(100).required(),
     email: joi.string().email().required(),
     idade: joi.number().min(0).integer().required(),
 });
 
-const deleteById = joi.object<{clientId: number}>({
-    clientId: joi.number().min(0).integer().required()
+const deleteById = joi.object<{id: number}>({
+    id: joi.number().min(0).integer().required()
 });
 
 const productSCHEMA = {
