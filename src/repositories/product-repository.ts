@@ -3,11 +3,11 @@ import { productBody } from "@/schemas/product-schema"
 
 
 async function findAll(){
-    const result = await prisma.produto.findMany()
+    const result = await prisma.produtos.findMany()
     return result
 }
 async function findByName(name: string){
-    const result = await prisma.produto.findFirst({
+    const result = await prisma.produtos.findFirst({
         where: {
             nome: name
         }
@@ -15,7 +15,7 @@ async function findByName(name: string){
     return result
 }
 async function findById(id: number){
-    const result = await prisma.produto.findFirst({
+    const result = await prisma.produtos.findFirst({
         where: {
             id: id
         }
@@ -23,7 +23,7 @@ async function findById(id: number){
     return result
 }
 async function createProduct(body: Omit<productBody, "id">){
-    const result = await prisma.produto.create({
+    const result = await prisma.produtos.create({
         data: {
             nome: body.nome,
             preco: body.preco,
@@ -33,7 +33,7 @@ async function createProduct(body: Omit<productBody, "id">){
     return result
 }
 async function updateProduct(body: productBody){
-    const result = await prisma.produto.update({
+    const result = await prisma.produtos.update({
         where: {
             id: body.id
         },
@@ -46,7 +46,7 @@ async function updateProduct(body: productBody){
     return result
 }
 async function deleteProduct(id: number){
-    const result = await prisma.produto.delete({
+    const result = await prisma.produtos.delete({
         where: {
             id: id
         }

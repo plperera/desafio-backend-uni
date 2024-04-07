@@ -2,11 +2,11 @@ import { prisma } from "@/config"
 import { clientBody } from "@/schemas/client-schema"
 
 async function findAll(){
-    const result = await prisma.cliente.findMany()
+    const result = await prisma.clientes.findMany()
     return result
 }
 async function findByEmail(email: string){
-    const result = await prisma.cliente.findFirst({
+    const result = await prisma.clientes.findFirst({
         where: {
             email: email
         }
@@ -14,7 +14,7 @@ async function findByEmail(email: string){
     return result
 }
 async function findById(id: number){
-    const result = await prisma.cliente.findFirst({
+    const result = await prisma.clientes.findFirst({
         where: {
             id: id
         }
@@ -22,7 +22,7 @@ async function findById(id: number){
     return result
 }
 async function createClient(body: Omit<clientBody, "id">){
-    const result = await prisma.cliente.create({
+    const result = await prisma.clientes.create({
         data: {
             email: body.email,
             idade: body.idade,
@@ -33,7 +33,7 @@ async function createClient(body: Omit<clientBody, "id">){
     return result
 }
 async function updateClient(body: clientBody){
-    const result = await prisma.cliente.update({
+    const result = await prisma.clientes.update({
         where: {
             id: body.id
         },
@@ -47,7 +47,7 @@ async function updateClient(body: clientBody){
     return result
 }
 async function deleteClient(id: number){
-    const result = await prisma.cliente.delete({
+    const result = await prisma.clientes.delete({
         where: {
             id: id
         }
