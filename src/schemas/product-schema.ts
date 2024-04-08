@@ -9,12 +9,14 @@ export type productBody = {
 
 const create = joi.object<Omit<productBody, "id">>({
     nome: joi.string().min(3).max(100).required(),
+    descricao: joi.string().min(3).max(100).required(),
     preco: joi.number().min(0).required(),
 });
 
 const update = joi.object<productBody>({
     id: joi.number().min(0).integer().required(),
     nome: joi.string().min(3).max(100).required(),
+    descricao: joi.string().min(3).max(100).required(),
     preco: joi.number().min(0).required(),
 });
 

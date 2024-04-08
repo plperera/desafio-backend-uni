@@ -27,10 +27,10 @@ const deleteById = joi.object<{id: number}>({
     id: joi.number().min(0).integer().required()
 });
 
-const productSCHEMA = {
+const clientSCHEMA = {
     create,
     update,
     deleteById
 }
 
-export {productSCHEMA}
+export {clientSCHEMA}
