@@ -13,7 +13,7 @@ app
   .use(cors())
   .use(express.json())
   .get("/health", (_req, res) => res.send("OK!"))
-  .use("/product", productRouter)
-  .use("/client", clientRouter)
+  .use("/produtos", productRouter)
+  .use("/clientes", clientRouter)
 
 export default app;
